@@ -12,7 +12,7 @@ library(gridExtra)
 library(openxlsx)
 library(e1071)
 
-setwd("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/figures3/appendix/")
+setwd("yourwd")
 
 #### rn
 compnat<-readRDS("compnat.rds")
@@ -26,15 +26,15 @@ mod<-as_tibble(data.frame(date<-compnat$time,effekt<-compnat$DE))
 names(mod)<-c("date","effekt")
 
 ###mlm1
-#mlptsd6<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/mlptsd6_80.rds")
 
-#mlptsd6<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/mlptsd680_2.rds")
+
+
 
 obs2<-as_tibble(data.frame(date<-compnat$time,effekt<-obseff))
 names(obs2)<-c("date","effekt")
 
 #mlm1ts<-unlist(readRDS("mlm1ts_60.rds"))
-mlm1ts<-unlist(readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm2x206ts.rds"))
+mlm1ts<-unlist(readRDS("mlm2x206ts.rds"))
 mod2<-as_tibble(data.frame(date<-compnat$time,effekt<-mlm1ts))
 names(mod2)<-c("date","effekt")
 
@@ -47,7 +47,7 @@ names(obs3)<-c("date","effekt")
 
 #mod3<-as_tibble(data.frame(date<-compnat$time,effekt<-mlptsd5))
 #names(mod3)<-c("date","effekt")
-mlm2ts<-unlist(readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm3ts_60n.rds"))
+mlm2ts<-unlist(readRDS("mlm3ts_60n.rds"))
 mod3<-as_tibble(data.frame(date<-compnat$time,effekt<-mlm2ts))
 names(mod3)<-c("date","effekt")
 
@@ -295,7 +295,7 @@ names(herr223)<-c("deviation","hour")
 
 errdt2<-as_tibble(rbind(herr21, herr22, herr23,herr24, herr25, herr26,herr27, herr28, herr29,herr210, herr211, herr212,herr213, herr214, herr215,herr216, herr217, herr218,herr219, herr220, herr221,herr222, herr223, herr224))
 
-#mlptsd5<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/mlptsd5_80.rds")
+
 
 modho3<-data.frame(obs3$date,mod3$effekt)
 names(modho3)<-c("date", "effekt")
@@ -422,7 +422,7 @@ names(errdtfr3)<-c("hour","median","range", "type")
 errdtfrt<-rbind(errdtfr,errdtfr2,errdtfr3)
 errdtfrtdf<-data.frame(errdtfr,errdtfr2,errdtfr3)
 
-setwd("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/figures3/appendix/")
+setwd("yourwd")
 
 write.xlsx(errdtfrtdf,"hdev.xlsx")
 
@@ -3032,11 +3032,11 @@ write.xlsx(errallseasm,"errallseasm.xlsx")
 
 
 ######## model ext values
-t3<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm3model_60n.rds")
+t3<-readRDS("mlm3model_60n.rds")
 
 View(t3$finalModel$xNames)
 
-datestest<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/datasfmlm2final2.rds")[1:24,3:45]
+datestest<-readRDS("datasfmlm2final2.rds")[1:24,3:45]
 
 cdtest<-matrix(rep(0,len=(length(t3$finalModel$xNames)-43)*24),nrow=24)
 
@@ -3135,7 +3135,7 @@ mlm280mner<-(mean(abs(ofpreddesc-wtx))/mean(wtx))
 
 #### mlm2 60 training
 
-t32<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm2model206_60.rds")
+t32<-readRDS("mlm2model206_60.rds")
 
 ofpred2<-predict(t32,t32$trainingData[2:NCOL(t32$trainingData)])
 
@@ -3154,7 +3154,7 @@ rm(t32)
 # mlm1 80 training
 
 
-t33<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm1model80.rds")
+t33<-readRDS("mlm1model80.rds")
 
 ofpred3<-predict(t33,t33$trainingData[2:NCOL(t33$trainingData)])
 
@@ -3172,7 +3172,7 @@ rm(t33)
 
 # mlm1 60 training
 
-t34<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm1model_60.rds")
+t34<-readRDS("mlm1model_60.rds")
 
 ofpred4<-predict(t34,t34$trainingData[2:NCOL(t34$trainingData)])
 
@@ -3190,7 +3190,7 @@ rm(t34)
 
 # mlm3 80 training
 
-t35<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm3model_80.rds")
+t35<-readRDS("mlm3model_80.rds")
 
 ofpred5<-predict(t35,t35$trainingData[2:NCOL(t35$trainingData)])
 
@@ -3208,7 +3208,7 @@ rm(t35)
 
 # mlm3 60 training
 
-t36<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm3model_60n.rds")
+t36<-readRDS("mlm3model_60n.rds")
 
 ofpred6<-predict(t36,t36$trainingData[2:NCOL(t36$trainingData)])
 
@@ -3225,7 +3225,7 @@ mlm360mner<-(mean(abs(ofpreddesc6-wtx6))/mean(wtx6))
 
 #mlm1 80 pred
 
-ts33<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm1ts80.rds")
+ts33<-readRDS("mlm1ts80.rds")
 
 mlm180sqerp<-(sqrt(mean((unlist(ts33)-obs$effekt)^2))/mean(obs$effekt))
 
@@ -3233,7 +3233,7 @@ mlm180mnerp<-(mean(abs(unlist(ts33)-obs$effekt))/mean(obs$effekt))
 
 #mlm1 60 pred
 
-ts34<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm1ts_60.rds")
+ts34<-readRDS("mlm1ts_60.rds")
 
 mlm160sqerp<-(sqrt(mean((unlist(ts34)-obs$effekt)^2))/mean(obs$effekt))
 
@@ -3241,7 +3241,7 @@ mlm160mnerp<-(mean(abs(unlist(ts34)-obs$effekt))/mean(obs$effekt))
 
 #mlm2 80 pred
 
-ts3<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm2x206ts.rds")
+ts3<-readRDS("mlm2x206ts.rds")
 
 mlm280sqerp<-(sqrt(mean((unlist(ts3)-obs$effekt)^2))/mean(obs$effekt))
 
@@ -3249,7 +3249,7 @@ mlm280mnerp<-(mean(abs(unlist(ts3)-obs$effekt))/mean(obs$effekt))
 
 #mlm2 60 pred
 
-ts32<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm2ts206_60.rds")
+ts32<-readRDS("mlm2ts206_60.rds")
 
 mlm260sqerp<-(sqrt(mean((unlist(ts32)-obs$effekt)^2))/mean(obs$effekt))
 
@@ -3257,7 +3257,7 @@ mlm260mnerp<-(mean(abs(unlist(ts32)-obs$effekt))/mean(obs$effekt))
 
 #mlm3 80 pred
 
-ts35<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm3ts_80.rds")
+ts35<-readRDS("mlm3ts_80.rds")
 
 mlm380sqerp<-(sqrt(mean((unlist(ts35)-obs$effekt)^2))/mean(obs$effekt))
 
@@ -3265,7 +3265,7 @@ mlm380mnerp<-(mean(abs(unlist(ts35)-obs$effekt))/mean(obs$effekt))
 
 #mlm3 60 pred
 
-ts36<-readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/mlm3ts_60n.rds")
+ts36<-readRDS("mlm3ts_60n.rds")
 
 mlm360sqerp<-(sqrt(mean((unlist(ts36)-obs$effekt)^2))/mean(obs$effekt))
 
