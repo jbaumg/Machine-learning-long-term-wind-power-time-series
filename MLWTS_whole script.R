@@ -37,8 +37,8 @@ mapply(getMERRADataBox,
        c(lat2),
        list(date_seq),
        download_folder,
-       c("s_hoelt"),
-       c("getMERRAData2017"),
+       c("username"),
+       c("password"),
        c(TRUE),
        avg="TRUE",
        dim="2d")
@@ -137,9 +137,9 @@ print(1/length(srt[,1]))
 ds<-u10m
 sr<-wcap
 
-"C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/renewable_power_plants_DE_new.csv"
 
-cap<-read_delim("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/time_series_installed capacities.csv",delim=",")
+
+cap<-read_delim("time_series_installed capacities.csv",delim=",")
 wcap<-cap %>% 
   dplyr::select(commissioning_date,decommissioning_date,energy_source_level_2,technology,electrical_capacity,lat,lon) 
 wcap %>% mutate(start=commissioning_date,end=decommissioning_date,tech=energy_source_level_2,type=technology,capacity=as.numeric(electrical_capacity),latitude=as.numeric(lat),longitude=as.numeric(lon))
@@ -155,7 +155,7 @@ wcapOn<-data.frame(wcapOn,wcapOnt)
 names(wcapOn$wcapOnt)<-c("cum_inst_cap")
 wcapOn<-wcapOn[which(!is.na(wcapOn$lat)),]
 
-cap<-read_delim("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/renewable_power_plants_DE_new.csv",delim=",")
+cap<-read_delim("renewable_power_plants_DE_new.csv",delim=",")
 
 c<-getts(wcapOn,u10m)
 un<-unique(c)
@@ -371,8 +371,8 @@ tstm4<-matrix(unlist(tsh4),ncol=length(tsh4)*6,byrow=FALSE)
 ##########
 
 
-tab_<-read_delim("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/time_series_60min_singleindex_new.csv",delim=",")
-tab_<-read_delim("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/time_series_60min_singleindex(1).csv",delim=",")
+tab_<-read_delim("time_series_60min_singleindex_new.csv",delim=",")
+tab_<-read_delim("time_series_60min_singleindex(1).csv",delim=",")
 tab_select1<-tab_ %>%
   mutate(hour=hour(utc_timestamp),day=wday(utc_timestamp),month=month(utc_timestamp)) %>%
   dplyr::select(utc_timestamp,DE_wind_generation_actual,
@@ -391,7 +391,7 @@ tab_select<-as_tibble(data.frame(tab_select1,tstm,wdirm2))
 
 names(tab_select)[1:5]<-c("date","tab_select.DE_wind_generation","hour","day","month")
 
-rrcap<-read_delim("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/renewable_capacity_timeseries.csv",delim=",")
+rrcap<-read_delim("renewable_capacity_timeseries.csv",delim=",")
 rrcap<-rrcap %>% 
   dplyr::select(day,DE_wind_capacity)%>%
   #dplyr::mutate(day=day,cap=as.numeric(DE_wind_capacity))%>%
@@ -494,7 +494,7 @@ tss<-seq(as.POSIXct("2010-01-01 00:00:00"), as.POSIXct("2016-12-31 23:00:00"), b
 mlptsd<-mlpts(data=datasf,tss=tss,yrs=2,nets=60,loc=FALSE)
 ############## Grid point subsetting 2  ##########################
 
-mod_in <- readRDS("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/modelsresults/modelmlm2x206.rds")
+mod_in <- readRDS("/modelmlm2x206.rds")
 
 inps<-mod_in$finalModel$snnsObject$getAllInputUnits()
 hids<-mod_in$finalModel$snnsObject$getAllUnitsTType("UNIT_HIDDEN")
@@ -642,7 +642,7 @@ cor(datasf$tab_select.DE_wind_generation,compnat$DE)
 (mean(abs(compnat$DE-datasf$tab_select.DE_wind_generation))/mean(datasf$tab_select.DE_wind_generation))
 
 
-mlptsdx<-read_rds("C:/Users/Johann Baumgartner/Desktop/Uni/Doktorat/Paper 1/mlptsd6x2_80.rds")
+mlptsdx<-read_rds("mlptsd6x2_80.rds")
 
 cor(datasf$tab_select.DE_wind_generation,unlist(mlptsdx))
 (sqrt(mean((unlist(mlptsdx)-datasf$tab_select.DE_wind_generation)^2))/mean(datasf$tab_select.DE_wind_generation))
